@@ -12,6 +12,7 @@ const ref = {
 };
 const { selector, divCatInfo, loader, error } = ref;
 
+selector.classList.add('.is-hidden')
 loader.classList.replace('loader', 'is-hidden');
 error.classList.add('is-hidden');
 divCatInfo.classList.add('is-hidden');
@@ -26,6 +27,8 @@ fetchBreeds()
             select: selector,
             data: arrBreedsId,
         });
+        selector.classList.remove('is-hidden');
+        loader.classList.add('is-hidden');
     })
     .catch(onFetchError);
 
