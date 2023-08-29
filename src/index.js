@@ -12,8 +12,7 @@ const ref = {
 };
 const { selector, divCatInfo, loader, error } = ref;
 
-selector.classList.add('.is-hidden')
-loader.classList.replace('loader', 'is-hidden');
+loader.classList.add('is-hidden');
 error.classList.add('is-hidden');
 divCatInfo.classList.add('is-hidden');
 
@@ -28,11 +27,10 @@ fetchBreeds()
             data: arrBreedsId,
         });
         selector.classList.remove('is-hidden');
-        loader.classList.add('is-hidden');
+        selector.addEventListener('change', onSelectBreed);
     })
     .catch(onFetchError);
 
-selector.addEventListener('change', onSelectBreed);
 
 function onSelectBreed(event) {
     loader.classList.replace('is-hidden', 'loader');
@@ -42,8 +40,6 @@ function onSelectBreed(event) {
     const breedId = event.currentTarget.value;
     fetchCatByBreed(breedId)
         .then(data => {
-            loader.classList.replace('loader', 'is-hidden');
-            selector.classList.remove('is-hidden');
             const { url, breeds } = data[0];
 
             divCatInfo.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="600"/></div>
@@ -52,13 +48,15 @@ function onSelectBreed(event) {
       <p>${breeds[0].description}</p>
       <p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`;
             divCatInfo.classList.remove('is-hidden');
+            loader.classList.add('is-hidden');
+            selector.classList.remove('is-hidden');
         })
         .catch(onFetchError);
 }
 
 function onFetchError(error) {
     selector.classList.remove('is-hidden');
-    loader.classList.replace('loader', 'is-hidden');
+    loader.classList.add('is-hidden');
 
     Notify.failure(
         'Oops! Something went wrong! Try reloading the page or select another cat breed!', {
