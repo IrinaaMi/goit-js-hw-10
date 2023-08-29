@@ -36,3 +36,17 @@
     max-width: 400px;
     margin: auto;
 }
+
+.box-img {
+    display: flex;
+    align-items: center;
+}
+
+.cat-info {
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
